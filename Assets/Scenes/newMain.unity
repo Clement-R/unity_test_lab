@@ -118,13 +118,16 @@ MonoBehaviour:
   columns: 8
   rows: 8
   wallCount:
-    minimum: 5
+    minimum: 9
     maximum: 9
-  exit: {fileID: 157650, guid: 05a985cf2b94b4c9b834518771da6446, type: 2}
+  exit: {fileID: 126854, guid: ed158ecb99d184071a1d4ce22ceeb8e9, type: 2}
   floorTiles:
   - {fileID: 157650, guid: 05a985cf2b94b4c9b834518771da6446, type: 2}
+  - {fileID: 168984, guid: 4e63521367c1d43229312b98b93c0963, type: 2}
   wallTiles:
-  - {fileID: 157650, guid: 05a985cf2b94b4c9b834518771da6446, type: 2}
+  - {fileID: 172492, guid: a11d2478fca984e1087da3ae1af31b84, type: 2}
+  innerWallTiles:
+  - {fileID: 189646, guid: 2fdcd50418b8d4d40821630cd1b02a4e, type: 2}
 --- !u!114 &247987545
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,5 +15,7 @@ public class TileBehavior : MonoBehaviour {
 
 	void OnMouseDown() {
 		Debug.Log ("Clicked");
+		Debug.Log (this.transform.position.x);
+		Debug.Log (this.transform.position.y);
 	}
 }

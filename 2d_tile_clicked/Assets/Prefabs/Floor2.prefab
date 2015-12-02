@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 474016}
   - 212: {fileID: 21287402}
   - 61: {fileID: 6150260}
-  - 114: {fileID: 11481636}
   m_Layer: 0
   m_Name: Floor2
   m_TagString: Untagged
@@ -43,17 +42,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .699999988, y: .699999988}
---- !u!114 &11481636
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 168984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e671b0ba26682491d99bb007963b9ada, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21287402
 SpriteRenderer:
   m_ObjectHideFlags: 1

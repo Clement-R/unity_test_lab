@@ -17,5 +17,6 @@ public class TileBehavior : MonoBehaviour {
 		Debug.Log ("Clicked");
 		Debug.Log (this.transform.position.x);
 		Debug.Log (this.transform.position.y);
+
 	}
 }

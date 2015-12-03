@@ -20,6 +20,6 @@ public class BuildableTileBehavior : MonoBehaviour {
 		Vector3 position = new Vector3 (this.transform.position.x, this.transform.position.y, 0f);
 
 		// Instantiates a prefab named "Tower" located in any Resources folder in your project's Assets folder.
-		GameObject instance = Instantiate(Resources.Load("Tower", typeof(GameObject)), position, Quaternion.identity) as GameObject;
+		Instantiate(Resources.Load("Tower", typeof(GameObject)), position, Quaternion.identity);
 	}
 }

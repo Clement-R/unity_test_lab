@@ -14,9 +14,9 @@ public class BuildableTileBehavior : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		Debug.Log ("Buildable");
-		Debug.Log (this.transform.position.x);
-		Debug.Log (this.transform.position.y);
+		// Debug.Log ("Buildable");
+		// Debug.Log (this.transform.position.x);
+		// Debug.Log (this.transform.position.y);
 		Vector3 position = new Vector3 (this.transform.position.x, this.transform.position.y, 0f);
 
 		// Instantiates a prefab named "Tower" located in any Resources folder in the project's Assets folder.

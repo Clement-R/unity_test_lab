@@ -8,9 +8,9 @@ public class EnemyController : MonoBehaviour {
 		SpriteRenderer sr = GetComponent<SpriteRenderer>();
 		Debug.Log (sr.sortingLayerName);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 }

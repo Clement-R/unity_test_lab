@@ -17,9 +17,6 @@ public class EnemyController : MonoBehaviour {
         rb2D.MovePosition(rb2D.position + velocity * Time.fixedDeltaTime);
     }
 
-	void SearchForNextTile() {
-	}
-
 	void Move() {
 	}
 }

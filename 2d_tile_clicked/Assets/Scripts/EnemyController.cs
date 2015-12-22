@@ -5,10 +5,10 @@ public class EnemyController : MonoBehaviour {
 
 	public Vector2 velocity;
     public LayerMask items;
-    public float moveTime = 1000.0f;
+    public float moveTime = 0.1f;
     
     private Rigidbody2D rb2D;
-    private GameObject exit;
+    private Transform exit;
     private float inverseMoveTime;
 
     // Use this for initialization
@@ -22,12 +22,31 @@ public class EnemyController : MonoBehaviour {
     void FixedUpdate() {
         rb2D.MovePosition(rb2D.position + velocity * Time.fixedDeltaTime);
         if (exit == null) {
-            exit = GameObject.FindGameObjectWithTag("Exit");
+            exit = GameObject.FindGameObjectWithTag("Exit").transform;
         } else {
             RaycastHit2D hit;
+            /*
             int exit_x = Mathf.FloorToInt(exit.transform.position.x);
             int exit_y = Mathf.FloorToInt(exit.transform.position.y);
-            bool canMove = Move(exit_x, exit_y, out hit);
+            */
+            int xDir = 0;
+            int yDir = 0;
+
+            if (Mathf.Abs(exit.position.x - transform.position.x) < float.Epsilon)
+                yDir = exit.position.y > transform.position.y ? 1 : -1;
+            else
+                xDir = exit.position.x > transform.position.x ? 1 : -1;
+
+            bool canMove = Move(xDir, yDir, out hit);
+            /*
+            if (hit.transform == null)
+                //If nothing was hit, return and don't execute further code.
+                return;
+
+            //If canMove is false and hitComponent is not equal to null, meaning MovingObject is blocked and has hit something it can interact with.
+            if (!canMove)
+                Debug.Log("Hit hit hit");
+            */
         }
     }
 

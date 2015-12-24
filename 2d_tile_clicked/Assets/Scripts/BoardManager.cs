@@ -44,7 +44,6 @@ public class BoardManager : MonoBehaviour {
 
             for (int j = 0; j < row.Length; j++) {
                 int tile = row[j];
-                Debug.Log(tile);
 
                 GameObject toInstantiate;
 
@@ -70,7 +69,7 @@ public class BoardManager : MonoBehaviour {
                 }
 
                 int x = j;
-                int y = level.Length - i;
+                int y = (level.Length - 1) - i;
 
                 Debug.Log("X : " + x + " : Y :" + y);
 

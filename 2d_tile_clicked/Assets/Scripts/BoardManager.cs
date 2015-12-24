@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour {
 
@@ -14,10 +13,11 @@ public class BoardManager : MonoBehaviour {
     public GameObject wallTile;
     public GameObject borderWallTile;
 
+    public GameObject[] enemiesPrefabs;
+
     public int[][] level;
 
     private Transform boardHolder;
-    private List<Vector3> gridPositions = new List<Vector3>();
 
     void BoardSetup() {
         boardHolder = new GameObject("Board").transform;
@@ -36,11 +36,11 @@ public class BoardManager : MonoBehaviour {
         for (int i = 0; i < level.Length; i++) {
             int[] row = level[i];
 
-            String lel = "";
-            foreach (int item in row) {
-                lel += item + ":";
-            }
-            Debug.Log(lel);
+            // String lel = "";
+            // foreach (int item in row) {
+            //     lel += item + ":";
+            // }
+            // Debug.Log(lel);
 
             for (int j = 0; j < row.Length; j++) {
                 int tile = row[j];
@@ -71,7 +71,7 @@ public class BoardManager : MonoBehaviour {
                 int x = j;
                 int y = (level.Length - 1) - i;
 
-                Debug.Log("X : " + x + " : Y :" + y);
+                // Debug.Log("X : " + x + " : Y :" + y);
 
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(boardHolder);
@@ -81,5 +81,18 @@ public class BoardManager : MonoBehaviour {
 
     public void SetupScene(int level) {
         BoardSetup();
+        start = GameObject.FindGameObjectWithTag("Start");
+        exit = GameObject.FindGameObjectWithTag("Exit");
+        AddEnemy(start.transform.position);
+    }
+
+    public void AddEnemy(Vector3 pos) {
+        GameObject toInstantiate = enemiesPrefabs[0] as GameObject;
+        GameObject instance = Instantiate(toInstantiate, pos, Quaternion.identity) as GameObject;
+        instance.transform.SetParent(boardHolder);
+    }
+
+    public int[][] GetLevel() {
+        return level;
     }
 }

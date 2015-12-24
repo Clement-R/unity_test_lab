@@ -6,10 +6,12 @@ public class EnemyController : MonoBehaviour {
 	public Vector2 velocity;
     public LayerMask items;
     public float moveTime = 0.1f;
-    
+
     private Rigidbody2D rb2D;
     private Transform exit;
     private float inverseMoveTime;
+    private int[][] level;
+    private BoardManager board;
 
     // Use this for initialization
     void Start () {
@@ -17,40 +19,40 @@ public class EnemyController : MonoBehaviour {
 		Debug.Log (sr.sortingLayerName);
 		rb2D = GetComponent<Rigidbody2D>();
         inverseMoveTime = 1f / moveTime;
+
+        board = GameObject.Find("BoardManager").GetComponent<BoardManager>();
+        level = board.GetLevel();
     }
 
     void FixedUpdate() {
-        rb2D.MovePosition(rb2D.position + velocity * Time.fixedDeltaTime);
+        // rb2D.MovePosition(rb2D.position + velocity * Time.fixedDeltaTime);
+
         if (exit == null) {
             exit = GameObject.FindGameObjectWithTag("Exit").transform;
         } else {
             RaycastHit2D hit;
-            /*
-            int exit_x = Mathf.FloorToInt(exit.transform.position.x);
-            int exit_y = Mathf.FloorToInt(exit.transform.position.y);
-            */
+
             int xDir = 0;
             int yDir = 0;
 
-            if (Mathf.Abs(exit.position.x - transform.position.x) < float.Epsilon)
-                yDir = exit.position.y > transform.position.y ? 1 : -1;
-            else
-                xDir = exit.position.x > transform.position.x ? 1 : -1;
+            // Debug.Log("Exit - X: " + exit.position.x + " ; Y: " + exit.position.y);
 
-            bool canMove = Move(xDir, yDir, out hit);
-            /*
-            if (hit.transform == null)
-                //If nothing was hit, return and don't execute further code.
-                return;
 
-            //If canMove is false and hitComponent is not equal to null, meaning MovingObject is blocked and has hit something it can interact with.
-            if (!canMove)
-                Debug.Log("Hit hit hit");
-            */
+            // if (Mathf.Abs(exit.position.x - transform.position.x) < float.Epsilon)
+            //     yDir = exit.position.y > transform.position.y ? 1 : -1;
+            // else
+            //     xDir = exit.position.x > transform.position.x ? 1 : -1;
+
+            // bool canMove = Move(xDir, yDir, out hit);
+            // Move(xDir, yDir, out hit);
         }
     }
 
-    //Move returns true if it is able to move and false if not. 
+    // GameObject SearchNearestTile() {
+
+    // }
+
+    //Move returns true if it is able to move and false if not.
     //Move takes parameters for x direction, y direction and a RaycastHit2D to check collision.
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit) {
         //Store start position to move from, based on objects current transform position.
@@ -83,7 +85,7 @@ public class EnemyController : MonoBehaviour {
 
     //Co-routine for moving units from one space to next, takes a parameter end to specify where to move to.
     protected IEnumerator SmoothMovement(Vector3 end) {
-        //Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
+        //Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter.
         //Square magnitude is used instead of magnitude because it's computationally cheaper.
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 

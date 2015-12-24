@@ -37,6 +37,9 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+--- !u!127 &3
+LevelGameManager:
+  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -65,7 +68,6 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
-    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
@@ -122,6 +124,8 @@ MonoBehaviour:
   - {fileID: 168984, guid: 4e63521367c1d43229312b98b93c0963, type: 2}
   wallTile: {fileID: 189646, guid: 2fdcd50418b8d4d40821630cd1b02a4e, type: 2}
   borderWallTile: {fileID: 172492, guid: a11d2478fca984e1087da3ae1af31b84, type: 2}
+  enemiesPrefabs:
+  - {fileID: 182074, guid: 3bd64e327849047c5b63fea0d35ba385, type: 2}
 --- !u!114 &247987545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693c51c0dfdc94f3989272596595996b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardScript: {fileID: 0}
+  boardScript: {fileID: 247987544}
 --- !u!4 &247987546
 Transform:
   m_ObjectHideFlags: 0
@@ -214,7 +218,6 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10

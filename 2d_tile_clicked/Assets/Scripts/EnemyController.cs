@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyController : MonoBehaviour {
 
@@ -44,13 +45,68 @@ public class EnemyController : MonoBehaviour {
             //     xDir = exit.position.x > transform.position.x ? 1 : -1;
 
             // bool canMove = Move(xDir, yDir, out hit);
-            // Move(xDir, yDir, out hit);
+			Dictionary<string, int> nearest = SearchNearestTile();
+
+			Debug.Log ("X : " + nearest["x"] + " ; Y : " + nearest["y"]);
+
+			Move(nearest["x"], nearest["y"], out hit);
         }
     }
 
-    // GameObject SearchNearestTile() {
+	Dictionary<string, int> SearchNearestTile() {
+		// Search if exit is above or under current position, if so go up or down following position
+		// If can't do that (being in the border of the map, or no tile upper that's accessible
 
-    // }
+		bool move = false;
+		int xDir = 0;
+		int yDir = 0;
+
+		if (transform.position.y < exit.position.y) {
+			// Enemy is under exit
+			if ((transform.position.y + 1) <= (board.GetRows() - 1)) {
+				move = true;
+				yDir = 1;
+			}
+		} else {
+			// Enemy is above exit
+			if ((transform.position.y - 1) >= 0) {
+				move = true;
+				yDir = -1;
+			}
+		}
+
+		if (move == false) {
+			if (transform.position.x < exit.position.x) {
+				if ((transform.position.x + 1) <= (board.GetColumns() - 1)) {
+					move = true;
+					xDir = 1;
+				}
+			} else {
+				if ((transform.position.x - 1) >= 0) {
+					move = true;
+					xDir = -1;
+				}
+			}
+		}
+
+		Dictionary<string, int> nearestTile = new Dictionary<string, int>();
+
+		int xPos = Mathf.FloorToInt(transform.position.x);
+		int yPos = Mathf.FloorToInt(transform.position.y);
+
+		if (yDir != 0) {
+			nearestTile.Add("x", xPos);
+			nearestTile.Add("y", yPos + yDir);
+		} else if (xDir != 0) {
+			nearestTile.Add("x", xPos + xDir);
+			nearestTile.Add("y", yPos);
+		} else {
+			nearestTile.Add("x", xPos);
+			nearestTile.Add("y", yPos);
+		}
+
+		return nearestTile;
+    }
 
     //Move returns true if it is able to move and false if not.
     //Move takes parameters for x direction, y direction and a RaycastHit2D to check collision.

@@ -95,4 +95,12 @@ public class BoardManager : MonoBehaviour {
     public int[][] GetLevel() {
         return level;
     }
+
+	public int GetColumns() {
+		return columns;
+	}
+
+	public int GetRows() {
+		return rows;
+	}
 }

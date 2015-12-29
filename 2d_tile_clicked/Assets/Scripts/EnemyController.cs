@@ -34,28 +34,32 @@ public class EnemyController : MonoBehaviour {
 		path = new List<Dictionary<string, int>>() ;
 		path = SearchPathToExit(exit);
         pathReady = true;
+
+        
     }
 
     void FixedUpdate() {
-        // Go through tiles in path
-        if (canMove && pathReady) {
-            Dictionary<string, int> tile = path[pathPos];
-            canMove = false;
-            Debug.Log("GOTO -- X : " + tile["x"] + " Y : " + tile["y"]);
-            Move(tile["x"], tile["y"]);
-            pathPos++;
+        if (transform.position != exit.position) {
+            Debug.Log(canMove);
+            if (canMove) {
+                Dictionary<string, int> tile = path[pathPos];
+
+                Debug.Log("GOTO -- X : " + tile["x"] + " Y : " + tile["y"]);
+                Move(tile["x"], tile["y"]);
+                pathPos++;
+            }
+        } else {
+            Debug.Log("Enemy has reached exit");
         }
     }
 
-	List<Dictionary<string, int>> SearchPathToExit(Transform exit) {
+    List<Dictionary<string, int>> SearchPathToExit(Transform exit) {
 		List<Dictionary<string, int>> pathToExit = new List<Dictionary<string, int>>();
 
 		bool pathFound = false;
 
 		int x = Mathf.FloorToInt(transform.position.x);
 		int y = Mathf.FloorToInt(transform.position.y);
-
-        int sec = 0;
 
         Dictionary<string, int> previousTile = null;
         while (pathFound == false) {
@@ -92,12 +96,6 @@ public class EnemyController : MonoBehaviour {
                 // Error case
                 // TODO : manage if enemy is blocked ...
                 pathFound = true;
-            }
-
-            if(sec > 100) {
-                pathFound = true;
-            } else {
-                sec++;
             }
 		}
         
@@ -202,14 +200,15 @@ public class EnemyController : MonoBehaviour {
     }
 
     protected void Move(int xDir, int yDir) {
+        canMove = false;
         //Store start position to move from, based on objects current transform position.
         Vector2 start = transform.position;
 
         // Calculate end position based on the direction parameters passed in when calling Move.
         Vector2 end = new Vector2(xDir, yDir);
 
+        Debug.Log("Start coroutine");
         StartCoroutine(SmoothMovement(end));
-        canMove = true;
     }
 
     protected IEnumerator SmoothMovement(Vector3 end) {
@@ -231,5 +230,7 @@ public class EnemyController : MonoBehaviour {
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
+        Debug.Log("Tristesse");
+        canMove = true;
     }
 }

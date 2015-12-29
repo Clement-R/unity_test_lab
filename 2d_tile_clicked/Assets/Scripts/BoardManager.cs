@@ -36,12 +36,6 @@ public class BoardManager : MonoBehaviour {
         for (int i = 0; i < level.Length; i++) {
             int[] row = level[i];
 
-            // String lel = "";
-            // foreach (int item in row) {
-            //     lel += item + ":";
-            // }
-            // Debug.Log(lel);
-
             for (int j = 0; j < row.Length; j++) {
                 int tile = row[j];
 
@@ -70,8 +64,6 @@ public class BoardManager : MonoBehaviour {
 
                 int x = j;
                 int y = (level.Length - 1) - i;
-
-                // Debug.Log("X : " + x + " : Y :" + y);
 
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(boardHolder);
@@ -102,17 +94,6 @@ public class BoardManager : MonoBehaviour {
             int[] row = level[(level.Length - 1) - i];
             reversedLevel[i] = row;
         }
-
-        /*
-        for (int i = 0; i < reversedLevel.Length; i++) {
-            int[] row = reversedLevel[i];
-            String lel = "";
-            foreach (int item in row) {
-                lel += item + ":";
-            }
-            Debug.Log(lel);
-        }
-        */
 
         return reversedLevel;
     }

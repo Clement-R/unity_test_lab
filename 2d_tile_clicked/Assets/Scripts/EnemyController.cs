@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		SpriteRenderer sr = GetComponent<SpriteRenderer>();
-		// Debug.Log (sr.sortingLayerName);
+
 		rb2D = GetComponent<Rigidbody2D>();
         inverseMoveTime = 1f / moveTime;
 
@@ -68,11 +68,6 @@ public class EnemyController : MonoBehaviour {
                 previousTile.Add("x", x);
                 previousTile.Add("y", y);
             }
-
-            /*
-            Debug.Log("[PREV] X : " + previousTile["x"] + "; Y : " + previousTile["y"]);
-            Debug.Log("[POS]  X : " + x + "; Y : " + y);
-            */
 
             Dictionary<string, int> tile = SearchNearestTile(x, y, previousTile);
 

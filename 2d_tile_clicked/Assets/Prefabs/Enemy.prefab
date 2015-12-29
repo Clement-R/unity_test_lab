@@ -61,7 +61,7 @@ MonoBehaviour:
   items:
     serializedVersion: 2
     m_Bits: 0
-  moveTime: .100000001
+  moveTime: 1
 --- !u!212 &21218534
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -110,6 +110,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
       value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: moveTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

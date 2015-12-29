@@ -16,6 +16,9 @@ public class EnemyController : MonoBehaviour {
     private int[][] level;
     private BoardManager board;
 	private List<Dictionary<string, int>>  path;
+    private int pathPos = 0;
+    private bool canMove = true;
+    private bool pathReady = false;
 
     // Use this for initialization
     void Start () {
@@ -30,27 +33,18 @@ public class EnemyController : MonoBehaviour {
 
 		path = new List<Dictionary<string, int>>() ;
 		path = SearchPathToExit(exit);
-
-		Debug.Break();
+        pathReady = true;
     }
 
     void FixedUpdate() {
-        // rb2D.MovePosition(rb2D.position + velocity * Time.fixedDeltaTime);
-
-		/*
-        RaycastHit2D hit;
-
-        int xDir = 0;
-        int yDir = 0;
-		*/
-        // bool canMove = Move(xDir, yDir, out hit);
-		/*
-		Dictionary<string, int> nearest = SearchNearestTile();
-
-		Debug.Log ("Chosen tile : X : " + nearest["x"] + " ; Y : " + nearest["y"]);
-
-		Move(nearest["x"], nearest["y"], out hit);
-		*/
+        // Go through tiles in path
+        if (canMove && pathReady) {
+            Dictionary<string, int> tile = path[pathPos];
+            canMove = false;
+            Debug.Log("GOTO -- X : " + tile["x"] + " Y : " + tile["y"]);
+            Move(tile["x"], tile["y"]);
+            pathPos++;
+        }
     }
 
 	List<Dictionary<string, int>> SearchPathToExit(Transform exit) {
@@ -71,9 +65,11 @@ public class EnemyController : MonoBehaviour {
                 previousTile.Add("y", y);
             }
 
+            /*
             Debug.Log("[PREV] X : " + previousTile["x"] + "; Y : " + previousTile["y"]);
             Debug.Log("[POS]  X : " + x + "; Y : " + y);
-            
+            */
+
             Dictionary<string, int> tile = SearchNearestTile(x, y, previousTile);
 
             // Add tile to path
@@ -104,9 +100,7 @@ public class EnemyController : MonoBehaviour {
                 sec++;
             }
 		}
-
-        Debug.Log("Da win");
-        Debug.Break();
+        
 		return pathToExit;
 	}
 
@@ -207,38 +201,17 @@ public class EnemyController : MonoBehaviour {
         return null;
     }
 
-    //Move returns true if it is able to move and false if not.
-    //Move takes parameters for x direction, y direction and a RaycastHit2D to check collision.
-    protected bool Move(int xDir, int yDir, out RaycastHit2D hit) {
+    protected void Move(int xDir, int yDir) {
         //Store start position to move from, based on objects current transform position.
         Vector2 start = transform.position;
 
         // Calculate end position based on the direction parameters passed in when calling Move.
-        Vector2 end = start + new Vector2(xDir, yDir);
+        Vector2 end = new Vector2(xDir, yDir);
 
-        //Disable the boxCollider so that linecast doesn't hit this object's own collider.
-        // boxCollider.enabled = false;
-
-        //Cast a line from start point to end point checking collision on blockingLayer.
-        hit = Physics2D.Linecast(start, end, items);
-
-        //Re-enable boxCollider after linecast
-        // boxCollider.enabled = true;
-
-        //Check if anything was hit
-        if (hit.transform == null) {
-            //If nothing was hit, start SmoothMovement co-routine passing in the Vector2 end as destination
-            StartCoroutine(SmoothMovement(end));
-
-            //Return true to say that Move was successful
-            return true;
-        }
-
-        //If something was hit, return false, Move was unsuccesful.
-        return false;
+        StartCoroutine(SmoothMovement(end));
+        canMove = true;
     }
 
-    //Co-routine for moving units from one space to next, takes a parameter end to specify where to move to.
     protected IEnumerator SmoothMovement(Vector3 end) {
         //Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter.
         //Square magnitude is used instead of magnitude because it's computationally cheaper.

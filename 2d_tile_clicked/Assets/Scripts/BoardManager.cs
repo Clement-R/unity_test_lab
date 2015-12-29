@@ -82,9 +82,9 @@ public class BoardManager : MonoBehaviour {
     public void SetupScene(int level) {
         BoardSetup();
         start = GameObject.FindGameObjectWithTag("Start");
-		start.name = "Start";
+        start.name = "Start";
         exit = GameObject.FindGameObjectWithTag("Exit");
-		exit.name = "Exit";
+        exit.name = "Exit";
         AddEnemy(start.transform.position);
     }
 
@@ -96,21 +96,25 @@ public class BoardManager : MonoBehaviour {
 
     public int[][] GetLevel() {
 
-        int[][] reversedLevel;
+        int[][] reversedLevel = new int[level.Length][];
 
-        // for (int i = 0; i < level.Length; i++) {
-        for (int i = level.Length - 1; i >= 0; i--) {
-            int[] row = level[i];
-
-            for (int j = 0; j < row.Length; j++) {
-
-                int x = j;
-                int y = i;
-                // reversedLevel[x][y] = level[][];
-            }
+        for (int i = 0; i < level.Length; i++) {
+            int[] row = level[(level.Length - 1) - i];
+            reversedLevel[i] = row;
         }
 
-        return level;
+        /*
+        for (int i = 0; i < reversedLevel.Length; i++) {
+            int[] row = reversedLevel[i];
+            String lel = "";
+            foreach (int item in row) {
+                lel += item + ":";
+            }
+            Debug.Log(lel);
+        }
+        */
+
+        return reversedLevel;
     }
 
 	public int GetColumns() {

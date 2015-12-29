@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour {
 
@@ -24,7 +26,7 @@ public class EnemyController : MonoBehaviour {
 
         board = GameObject.Find("BoardManager").GetComponent<BoardManager>();
         level = board.GetLevel();
-		exit = GameObject.Find("Exit").transform;
+        exit = GameObject.Find("Exit").transform;
 
 		path = new List<Dictionary<string, int>>() ;
 		path = SearchPathToExit(exit);
@@ -59,35 +61,70 @@ public class EnemyController : MonoBehaviour {
 		int x = Mathf.FloorToInt(transform.position.x);
 		int y = Mathf.FloorToInt(transform.position.y);
 
-		while (pathFound == false) {
-			Dictionary<string, int> tile = SearchNearestTile(x, y);
+        int sec = 0;
 
-			// Add tile to path
-			pathToExit.Add(tile);
+        Dictionary<string, int> previousTile = null;
+        while (pathFound == false) {
+            if (previousTile == null) {
+                previousTile = new Dictionary<string, int>();
+                previousTile.Add("x", x);
+                previousTile.Add("y", y);
+            }
 
-			// Change x and y to pos of nearest tile
-			// x = x + tile["x"];
-			// y = y + tile["y"];
+            Debug.Log("[PREV] X : " + previousTile["x"] + "; Y : " + previousTile["y"]);
+            Debug.Log("[POS]  X : " + x + "; Y : " + y);
+            
+            Dictionary<string, int> tile = SearchNearestTile(x, y, previousTile);
 
-			// If x and y are equal to exit pos, we stop the research
-			pathFound = true;
+            // Add tile to path
+            pathToExit.Add(tile);
+
+            // Set previous tile to previous pos
+            previousTile["x"] = x;
+            previousTile["y"] = y;
+
+            // If x and y are equal to exit pos, we stop the research
+            if (x == exit.position.x && y == exit.position.y) {
+                pathFound = true;
+            }
+
+            // Change x and y to pos of nearest tile
+            if (tile != null) {
+                x = tile["x"];
+                y = tile["y"];
+            } else {
+                // Error case
+                // TODO : manage if enemy is blocked ...
+                pathFound = true;
+            }
+
+            if(sec > 100) {
+                pathFound = true;
+            } else {
+                sec++;
+            }
 		}
 
+        Debug.Log("Da win");
+        Debug.Break();
 		return pathToExit;
 	}
 
-	Dictionary<string, int> SearchNearestTile(int x, int y) {
+	Dictionary<string, int> SearchNearestTile(int x, int y, Dictionary<string, int> previousTile) {
 		// Search if exit is above or under current position, if so go up or down following position
 		// If can't do that (being in the border of the map, or no tile upper that's accessible
 		// we look on right or left (50% chance). If we haven't found a tile we search if we can go down.
-
-		bool move = false;
 		int xDir = 0;
 		int yDir = 0;
 
-		Debug.Log ("X : " + x + "; Y : " + y);
+        Dictionary<string, int> nearestTile = new Dictionary<string, int>();
 
-		if (transform.position.y < exit.position.y) {
+        /*
+        Debug.Log("X : " + x + "; Y : " + y);
+        Debug.Log(" VALUE -> " + level[y][x]);
+        */
+
+        if (transform.position.y < exit.position.y) {
 			// We are under the exit
 			yDir = 1;
 		} else {
@@ -95,66 +132,79 @@ public class EnemyController : MonoBehaviour {
 			yDir = -1;
 		}
 
-		Debug.Log ("yDir : " + yDir);
+        if (transform.position.x < exit.position.x) {
+            // We are on the left of the exit
+            xDir = 1;
+        }
+        else {
+            // We are on the right of the exit
+            xDir = -1;
+        }
 
 		// Check if tile in front of enemy is walkable
 		if (yDir != 0) {
 			// Check if we don't go out of bounds
-			if((y + yDir) < board.GetRows() && (y + yDir) >= 0) {
-				// Check if walkable
-				if(level[x][y + yDir] == 0) {
-					Debug.Log ("was here");
-					move = true;
+			if((y + yDir) < level.Length && (y + yDir) >= 0) {
+				// Check if walkable and not previous tile
+				if(level[y + yDir][x] == 0 || level[y + yDir][x] == 3) {
+                    // Check if we don't go on previous tile
+                    if(y + yDir != previousTile["y"]) {
+                        nearestTile.Add("x", x);
+                        nearestTile.Add("y", y + yDir);
+                        return nearestTile;
+                    }
 				}
 			}
 		}
-		/*
-		int z = y + yDir;
-		Debug.Log ("X : " + x + "; Y : " + z);
-		Debug.Log (level [x] [z]);
-		*/
-        Debug.Log ("X : " + x + "; Y : " + (y + yDir) + " VALUE -> " + level[x][y + yDir]);
-		// Debug.Log (level [x] [y + yDir]);
-		Debug.Log (move);
-		Debug.Break ();
+        
+        // Check right
+        if (xDir != 0) {
+            if ((x + 1) < level.Length && (x + 1) >= 0) {
+                // Check if walkable
+                if (level[y][x + 1] == 0 || level[y][x + 1] == 3) {
+                    // Check if we don't go on previous tile
+                    if (x + 1 != previousTile["x"]) {
+                        nearestTile.Add("x", x + 1);
+                        nearestTile.Add("y", y);
+                        return nearestTile;
+                    }
+                }
+            }
+        }
 
-		// If we can't go forward, we check if we can go on the sides
-		if (move == false) {
-			if (x < exit.position.x) {
-				if ((transform.position.x + 1) <= (board.GetColumns() - 1)) {
-					move = true;
-					xDir = 1;
-				}
-			} else {
-				if ((x - 1) >= 0) {
-					move = true;
-					xDir = -1;
-				}
-			}
-		}
+        // We search if we can go backward
+        if (yDir != 0) {
+            // Check if we don't go out of bounds
+            if ((y - yDir) < level.Length && (y - yDir) >= 0) {
+                // Check if walkable
+                if (level[y - yDir][x] == 0 || level[y - yDir][x] == 3) {
+                    // Check if we don't go on previous tile
+                    if (y - yDir != previousTile["y"]) {
+                        nearestTile.Add("x", x);
+                        nearestTile.Add("y", y - yDir);
+                        return nearestTile;
+                    }
+                }
+            }
+        }
 
-		// We search if we can go backward
-		if (move == false) {
-		}
+        // Check left
+        if (xDir != 0) {
+            if ((x - 1) < level.Length && (x - 1) >= 0) {
+                // Check if walkable
+                if (level[y][x - 1] == 0 || level[y][x - 1] == 3) {
+                    // Check if we don't go on previous tile
+                    if (x - 1 != previousTile["x"]) {
+                        nearestTile.Add("x", x - 1);
+                        nearestTile.Add("y", y);
+                        return nearestTile;
+                    }
+                }
+            }
+        }
 
-		if (move == true) {
-			Dictionary<string, int> nearestTile = new Dictionary<string, int>();
-
-			if (yDir != 0) {
-				nearestTile.Add("x", x);
-				nearestTile.Add("y", y + yDir);
-			} else if (xDir != 0) {
-				nearestTile.Add("x", x + xDir);
-				nearestTile.Add("y", y);
-			} else {
-				nearestTile.Add("x", x);
-				nearestTile.Add("y", y);
-			}
-
-			return nearestTile;
-		}
-
-		return null;
+        // We can't find a walkable tile
+        return null;
     }
 
     //Move returns true if it is able to move and false if not.

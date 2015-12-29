@@ -82,7 +82,9 @@ public class BoardManager : MonoBehaviour {
     public void SetupScene(int level) {
         BoardSetup();
         start = GameObject.FindGameObjectWithTag("Start");
+		start.name = "Start";
         exit = GameObject.FindGameObjectWithTag("Exit");
+		exit.name = "Exit";
         AddEnemy(start.transform.position);
     }
 

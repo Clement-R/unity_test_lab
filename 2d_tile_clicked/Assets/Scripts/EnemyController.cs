@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		SpriteRenderer sr = GetComponent<SpriteRenderer>();
-		Debug.Log (sr.sortingLayerName);
+		// Debug.Log (sr.sortingLayerName);
 		rb2D = GetComponent<Rigidbody2D>();
         inverseMoveTime = 1f / moveTime;
 
@@ -95,7 +95,7 @@ public class EnemyController : MonoBehaviour {
 			yDir = -1;
 		}
 
-		Debug.Log (yDir);
+		Debug.Log ("yDir : " + yDir);
 
 		// Check if tile in front of enemy is walkable
 		if (yDir != 0) {
@@ -113,7 +113,8 @@ public class EnemyController : MonoBehaviour {
 		Debug.Log ("X : " + x + "; Y : " + z);
 		Debug.Log (level [x] [z]);
 		*/
-		Debug.Log (level [x] [y + yDir]);
+        Debug.Log ("X : " + x + "; Y : " + (y + yDir) + " VALUE -> " + level[x][y + yDir]);
+		// Debug.Log (level [x] [y + yDir]);
 		Debug.Log (move);
 		Debug.Break ();
 
@@ -149,7 +150,7 @@ public class EnemyController : MonoBehaviour {
 				nearestTile.Add("x", x);
 				nearestTile.Add("y", y);
 			}
-			
+
 			return nearestTile;
 		}
 

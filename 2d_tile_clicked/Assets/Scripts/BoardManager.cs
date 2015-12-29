@@ -95,6 +95,21 @@ public class BoardManager : MonoBehaviour {
     }
 
     public int[][] GetLevel() {
+
+        int[][] reversedLevel;
+
+        // for (int i = 0; i < level.Length; i++) {
+        for (int i = level.Length - 1; i >= 0; i--) {
+            int[] row = level[i];
+
+            for (int j = 0; j < row.Length; j++) {
+
+                int x = j;
+                int y = i;
+                // reversedLevel[x][y] = level[][];
+            }
+        }
+
         return level;
     }
 

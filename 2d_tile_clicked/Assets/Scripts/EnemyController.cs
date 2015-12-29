@@ -225,7 +225,6 @@ public class EnemyController : MonoBehaviour {
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
-        Debug.Log("Tristesse");
         canMove = true;
     }
 }

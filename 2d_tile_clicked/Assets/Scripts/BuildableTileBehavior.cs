@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BuildableTileBehavior : MonoBehaviour {
 
+	private bool isFree = true;
+
 	// Use this for initialization
 	void Start () {
 
@@ -14,9 +16,17 @@ public class BuildableTileBehavior : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		Vector3 position = new Vector3 (this.transform.position.x, this.transform.position.y, 0f);
+		if (isFree) {
+			Vector3 position = new Vector3 (this.transform.position.x, this.transform.position.y, 0f);
+			
+			// Instantiates a prefab named "Tower" located in any Resources folder in the project's Assets folder.
+			Instantiate(Resources.Load("Tower", typeof(GameObject)), position, Quaternion.identity);
 
-		// Instantiates a prefab named "Tower" located in any Resources folder in the project's Assets folder.
-		Instantiate(Resources.Load("Tower", typeof(GameObject)), position, Quaternion.identity);
+			isFree = false;
+		}
+	}
+
+	public bool getIsFree() {
+		return isFree;
 	}
 }

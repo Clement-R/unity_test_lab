@@ -18,12 +18,9 @@ public class EnemyController : MonoBehaviour {
 	private List<Dictionary<string, int>>  path;
     private int pathPos = 0;
     private bool canMove = true;
-    private bool pathReady = false;
 
     // Use this for initialization
     void Start () {
-		SpriteRenderer sr = GetComponent<SpriteRenderer>();
-
 		rb2D = GetComponent<Rigidbody2D>();
         inverseMoveTime = 1f / moveTime;
 
@@ -33,9 +30,6 @@ public class EnemyController : MonoBehaviour {
 
 		path = new List<Dictionary<string, int>>() ;
 		path = SearchPathToExit(exit);
-        pathReady = true;
-
-        
     }
 
     void FixedUpdate() {
@@ -195,10 +189,8 @@ public class EnemyController : MonoBehaviour {
 
     protected void Move(int xDir, int yDir) {
         canMove = false;
-        //Store start position to move from, based on objects current transform position.
-        Vector2 start = transform.position;
-
-        // Calculate end position based on the direction parameters passed in when calling Move.
+        
+		// Calculate end position based on the direction parameters passed in when calling Move.
         Vector2 end = new Vector2(xDir, yDir);
 
         Debug.Log("Start coroutine");

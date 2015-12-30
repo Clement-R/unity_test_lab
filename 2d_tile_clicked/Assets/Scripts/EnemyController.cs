@@ -40,7 +40,6 @@ public class EnemyController : MonoBehaviour {
 
     void FixedUpdate() {
         if (transform.position != exit.position) {
-            Debug.Log(canMove);
             if (canMove) {
                 Dictionary<string, int> tile = path[pathPos];
 

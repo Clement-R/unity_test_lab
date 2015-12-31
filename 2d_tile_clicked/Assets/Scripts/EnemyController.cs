@@ -37,12 +37,9 @@ public class EnemyController : MonoBehaviour {
             if (canMove) {
                 Dictionary<string, int> tile = path[pathPos];
 
-                Debug.Log("GOTO -- X : " + tile["x"] + " Y : " + tile["y"]);
                 Move(tile["x"], tile["y"]);
                 pathPos++;
             }
-        } else {
-            Debug.Log("Enemy has reached exit");
         }
     }
 
@@ -193,7 +190,6 @@ public class EnemyController : MonoBehaviour {
 		// Calculate end position based on the direction parameters passed in when calling Move.
         Vector2 end = new Vector2(xDir, yDir);
 
-        Debug.Log("Start coroutine");
         StartCoroutine(SmoothMovement(end));
     }
 

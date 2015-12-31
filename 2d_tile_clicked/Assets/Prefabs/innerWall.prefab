@@ -9,8 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 449318}
   - 212: {fileID: 21277582}
-  - 61: {fileID: 6100866}
   - 114: {fileID: 11440056}
+  - 61: {fileID: 6100818}
   m_Layer: 0
   m_Name: innerWall
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6100866
+--- !u!61 &6100818
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -42,7 +42,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: .699999988, y: .699999988}
+  m_Size: {x: 1, y: 1}
 --- !u!114 &11440056
 MonoBehaviour:
   m_ObjectHideFlags: 1

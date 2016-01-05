@@ -22,6 +22,7 @@ public class BoardManager : MonoBehaviour {
     void BoardSetup() {
         boardHolder = new GameObject("Board").transform;
 
+		/*
         level = new int[][] {
             new int[] { 1, 1, 1, 1, 1, 1, 3, 1 },
             new int[] { 1, 4, 0, 0, 0, 4, 0, 1 },
@@ -32,6 +33,17 @@ public class BoardManager : MonoBehaviour {
             new int[] { 1, 4, 0, 4, 0, 0, 0, 1 },
             new int[] { 1, 1, 2, 1, 1, 1, 1, 1 }
         };
+        */
+		level = new int[][] {
+			new int[] { 1, 1, 1, 1, 1, 1, 1, 1 },
+			new int[] { 2, 0, 0, 0, 0, 0, 0, 1 },
+			new int[] { 1, 4, 4, 4, 4, 4, 0, 1 },
+			new int[] { 1, 0, 0, 0, 0, 0, 0, 1 },
+			new int[] { 1, 0, 4, 4, 4, 4, 4, 1 },
+			new int[] { 1, 0, 0, 0, 0, 0, 0, 1 },
+			new int[] { 1, 4, 4, 4, 4, 4, 0, 1 },
+			new int[] { 1, 1, 1, 1, 1, 1, 3, 1 }
+		};
 
         for (int i = 0; i < level.Length; i++) {
             int[] row = level[i];

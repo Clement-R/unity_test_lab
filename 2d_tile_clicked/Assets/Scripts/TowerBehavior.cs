@@ -20,6 +20,8 @@ public class TowerBehavior : MonoBehaviour {
 			// TODO : Make a way to change behavior
 			Vector3 enemyPos = enemiesInRange[0].transform.position;
 			transform.rotation = Quaternion.LookRotation(Vector3.forward, enemyPos - transform.position);
+		} else {
+			transform.rotation = Quaternion.identity;
 		}
 	}
 

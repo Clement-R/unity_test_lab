@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 492702}
   - 212: {fileID: 21200996}
   - 61: {fileID: 6190200}
+  - 114: {fileID: 11479780}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -24,8 +25,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.1500001, y: 5.30000019, z: 0}
-  m_LocalScale: {x: .5, y: .5, z: .608945727}
+  m_LocalPosition: {x: 1.35000002, y: -2.45000005, z: 0}
+  m_LocalScale: {x: .25, y: .25, z: .608945727}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,6 +43,18 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1.23000002, y: .779999971}
+--- !u!114 &11479780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5479f6363e4633149b24256fe4b7dddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
 --- !u!212 &21200996
 SpriteRenderer:
   m_ObjectHideFlags: 1

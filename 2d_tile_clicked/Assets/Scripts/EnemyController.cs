@@ -34,13 +34,15 @@ public class EnemyController : MonoBehaviour {
 
     void FixedUpdate() {
         if (transform.position != exit.position) {
-            if (canMove) {
-                Dictionary<string, int> tile = path[pathPos];
+			if (canMove) {
+				Dictionary<string, int> tile = path [pathPos];
 
-                Move(tile["x"], tile["y"]);
-                pathPos++;
-            }
-        }
+				Move (tile ["x"], tile ["y"]);
+				pathPos++;
+			}
+		} else {
+			Destroy(gameObject);
+		}
     }
 
     List<Dictionary<string, int>> SearchPathToExit(Transform exit) {

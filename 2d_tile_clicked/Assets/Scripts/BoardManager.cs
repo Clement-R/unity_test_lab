@@ -89,7 +89,6 @@ public class BoardManager : MonoBehaviour {
         start.name = "Start";
         exit = GameObject.FindGameObjectWithTag("Exit");
         exit.name = "Exit";
-        AddEnemy(start.transform.position);
     }
 
     public void AddEnemy(Vector3 pos) {
@@ -116,5 +115,14 @@ public class BoardManager : MonoBehaviour {
 
 	public int GetRows() {
 		return rows;
+	}
+
+	/* DEBUG PURPOSE ONLY */
+	public void Update()
+	{
+		if(Input.GetKeyDown("space"))
+		{
+			AddEnemy(start.transform.position);
+		}
 	}
 }

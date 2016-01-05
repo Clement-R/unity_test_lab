@@ -37,4 +37,7 @@ public class TowerBehavior : MonoBehaviour {
 		// TODO : Debug to ensure that the enemy removed is the one that's passed in param
 		//        and not a random one. C#.
 	}
+
+	void FireFireFire() {
+	}
 }

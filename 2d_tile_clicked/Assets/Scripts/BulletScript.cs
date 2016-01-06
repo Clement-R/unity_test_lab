@@ -5,12 +5,20 @@ public class BulletScript : MonoBehaviour {
 
     public float speed = 10;
 
+	private Vector3 targetPosition = Vector3.zero;
+
     void Start() {
         Destroy(gameObject, 2f);
     }
 
     // Update is called once per frame
     void Update () {
-        transform.Translate(0, speed * Time.deltaTime, 0);
+		if (targetPosition != Vector3.zero) {
+			transform.position += targetPosition * speed * Time.deltaTime;
+		}
+	}
+
+	public void setTargetPosition(Vector3 enemyPosition, Vector3 startPoint) {
+		targetPosition = enemyPosition - startPoint;
 	}
 }

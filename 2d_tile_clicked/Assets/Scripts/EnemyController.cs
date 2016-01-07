@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour {
 	private List<Dictionary<string, int>>  path;
     private int pathPos = 0;
     private bool canMove = true;
+	private int health = 3;
 
     // Use this for initialization
     void Start () {
@@ -33,15 +34,19 @@ public class EnemyController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (transform.position != exit.position) {
-			if (canMove) {
-				Dictionary<string, int> tile = path [pathPos];
-
-				Move (tile ["x"], tile ["y"]);
-				pathPos++;
+		if (health > 0) {
+			if (transform.position != exit.position) {
+				if (canMove) {
+					Dictionary<string, int> tile = path [pathPos];
+					
+					Move (tile ["x"], tile ["y"]);
+					pathPos++;
+				}
+			} else {
+				Destroy (gameObject);
 			}
 		} else {
-			Destroy(gameObject);
+			Destroy (gameObject);
 		}
     }
 
@@ -216,4 +221,11 @@ public class EnemyController : MonoBehaviour {
         }
         canMove = true;
     }
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		GameObject colliderGameObject = collider.gameObject;
+		if(colliderGameObject.tag == "Bullet") {
+			health --;
+		}
+	}
 }

@@ -21,4 +21,11 @@ public class BulletScript : MonoBehaviour {
 	public void setTargetPosition(Vector3 enemyPosition, Vector3 startPoint) {
 		targetPosition = enemyPosition - startPoint;
 	}
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		GameObject colliderGameObject = collider.gameObject;
+		if(colliderGameObject.tag == "Enemy") {
+			Destroy(gameObject);
+		}
+	}
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Exit
   - Start
+  - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX

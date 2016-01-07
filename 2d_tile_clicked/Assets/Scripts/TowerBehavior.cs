@@ -18,19 +18,24 @@ public class TowerBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (enemiesInRange.Count > 0) {
-			// Focus enemy that has enter the area first (FIFO list)
-			// TODO : Make a way to change behavior
-			Vector3 enemyPos = enemiesInRange[0].transform.position;
-			transform.rotation = Quaternion.LookRotation(Vector3.forward, enemyPos - transform.position);
-
-			if (Time.time > nextFire) {
-				nextFire = Time.time + fireRate;
-
-				// Instatiate a bullet and set its target position
-				GameObject clone = Instantiate(Resources.Load("Bullet", typeof(GameObject)), transform.position, transform.rotation * Quaternion.Euler(0, 0, 90	)) as GameObject;
-
-				BulletScript sc = clone.GetComponent<BulletScript> ();
-				sc.setTargetPosition(enemyPos, transform.position);
+			// Check if enemy has not been killed before
+			if(enemiesInRange[0].gameObject != null) {
+				// Focus enemy that has enter the area first (FIFO list)
+				// TODO : Make a way to change behavior
+				Vector3 enemyPos = enemiesInRange[0].transform.position;
+				transform.rotation = Quaternion.LookRotation(Vector3.forward, enemyPos - transform.position);
+				
+				if (Time.time > nextFire) {
+					nextFire = Time.time + fireRate;
+					
+					// Instatiate a bullet and set its target position
+					GameObject clone = Instantiate(Resources.Load("Bullet", typeof(GameObject)), transform.position, transform.rotation * Quaternion.Euler(0, 0, 90	)) as GameObject;
+					
+					BulletScript sc = clone.GetComponent<BulletScript> ();
+					sc.setTargetPosition(enemyPos, transform.position);
+				}
+			} else {
+				enemiesInRange.RemoveAt(0);
 			}
 		} else {
 			transform.rotation = Quaternion.identity;

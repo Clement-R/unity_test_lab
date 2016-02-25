@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 
 public class GameManagerDodgers : MonoBehaviour {
     public GameObject[] asteroids;
+    public float fallSpeed = 2f;
     private List<GameObject> inGameAsteroids = new List<GameObject> ();
 
     // Use this for initialization
@@ -30,6 +31,8 @@ public class GameManagerDodgers : MonoBehaviour {
         GameObject toInstantiate = asteroids[Random.Range (0, asteroids.Length)];
         GameObject asteroid = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
         Debug.Log(asteroid);
+        Rigidbody2D rb2 = asteroid.GetComponent<Rigidbody2D>();
+        rb2.velocity = new Vector2(0f, -fallSpeed);
         inGameAsteroids.Add(asteroid);
     }
 }

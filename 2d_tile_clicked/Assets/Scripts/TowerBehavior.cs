@@ -24,13 +24,13 @@ public class TowerBehavior : MonoBehaviour {
 				// TODO : Make a way to change behavior
 				Vector3 enemyPos = enemiesInRange[0].transform.position;
 				transform.rotation = Quaternion.LookRotation(Vector3.forward, enemyPos - transform.position);
-				
+
 				if (Time.time > nextFire) {
 					nextFire = Time.time + fireRate;
-					
+
 					// Instatiate a bullet and set its target position
 					GameObject clone = Instantiate(Resources.Load("Bullet", typeof(GameObject)), transform.position, transform.rotation * Quaternion.Euler(0, 0, 90	)) as GameObject;
-					
+
 					BulletScript sc = clone.GetComponent<BulletScript> ();
 					sc.setTargetPosition(enemyPos, transform.position);
 				}

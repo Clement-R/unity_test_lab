@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 public class Dodgers_GameManager : MonoBehaviour {
     public GameObject[] asteroids;
-    public float fallSpeed = 2f;
     private List<GameObject> inGameAsteroids = new List<GameObject> ();
-    private float timeBetweenAsteroid = 2.0f;
 
-    // Use this for initialization
+    private float timeBetweenAsteroid = 1.0f;
+    
 	void Start () {
         StartCoroutine(LaunchAsteroids());
 	}
@@ -25,17 +23,11 @@ public class Dodgers_GameManager : MonoBehaviour {
             float y = 8f;
 
             GameObject toInstantiate = asteroids[Random.Range(0, asteroids.Length)];
+            // Spawn an asteroid
             GameObject asteroid = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
 
-            Rigidbody2D rb2 = asteroid.GetComponent<Rigidbody2D>();
-            rb2.velocity = new Vector2(0f, -fallSpeed);
             inGameAsteroids.Add(asteroid);
             yield return new WaitForSeconds(timeBetweenAsteroid);
         }
     }
-
-    // Update is called once per frame
-    void Update () {
-
-	}
 }

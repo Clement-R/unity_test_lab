@@ -5,9 +5,9 @@ using Random = UnityEngine.Random;
 
 public class Dodgers_GameManager : MonoBehaviour {
     public GameObject[] asteroids;
-    private List<GameObject> inGameAsteroids = new List<GameObject> ();
+    public float timeBetweenAsteroid = 1.0f;
 
-    private float timeBetweenAsteroid = 1.0f;
+    private List<GameObject> inGameAsteroids = new List<GameObject> ();
 
 	void Start () {
         StartCoroutine(LaunchAsteroids());

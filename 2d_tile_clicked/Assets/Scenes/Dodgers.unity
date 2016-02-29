@@ -129,7 +129,7 @@ MonoBehaviour:
   - {fileID: 116360, guid: c27e18438fb75a040b5d0c61b9a3c6eb, type: 2}
   - {fileID: 185884, guid: 947cb262117b55a468bba791173bb79d, type: 2}
   - {fileID: 101144, guid: e1ab0fe33eb7d4309b3fe11d0b4fd8eb, type: 2}
-  fallSpeed: 2
+  timeBetweenAsteroid: 0.5
 --- !u!1 &847501490
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ public class Dodgers_AsteroidBehavior : MonoBehaviour {
     // Use this for initialization
     void Start () {
         fallSpeed = Random.Range(0.5f, 4f);
-        Debug.Log(fallSpeed);
     }
 
     void FixedUpdate() {

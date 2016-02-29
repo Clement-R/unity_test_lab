@@ -8,11 +8,11 @@ public class Dodgers_GameManager : MonoBehaviour {
     private List<GameObject> inGameAsteroids = new List<GameObject> ();
 
     private float timeBetweenAsteroid = 1.0f;
-    
+
 	void Start () {
         StartCoroutine(LaunchAsteroids());
 	}
-    
+
     IEnumerator LaunchAsteroids() {
         while (true) {
             // TODO : Let asteroids come from all sides of the screen

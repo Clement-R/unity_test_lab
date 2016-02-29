@@ -13,7 +13,5 @@ public class Dodgers_AsteroidBehavior : MonoBehaviour {
 
     void FixedUpdate() {
         transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
-        // rb2.AddForce(new Vector2(0f, -fallSpeed), ForceMode2D.Impulse);
-        // transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
     }
 }

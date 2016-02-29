@@ -16,10 +16,4 @@ public class Dodgers_PlayerController : MonoBehaviour {
 
         rb2d.velocity = new Vector2(moveHorizontal * speed, moveVertical * speed);
     }
-
-    void OnTriggerEnter2D (Collider2D collider) {
-        if (collider.gameObject.tag == "Enemy") {
-            Debug.Log("Asteroid hit !");
-        }
-    }
 }

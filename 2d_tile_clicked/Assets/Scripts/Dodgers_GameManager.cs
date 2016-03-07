@@ -18,7 +18,7 @@ public class Dodgers_GameManager : MonoBehaviour {
             // TODO : Let asteroids come from all sides of the screen
 
             // x between 7 and -7
-            float x = Random.Range(-7, 7);
+            float x = Random.Range(-6.5f, 6.5f);
             // y fixed to 8
             float y = 8f;
 

@@ -13,4 +13,8 @@ public class Dodgers_AsteroidBehavior : MonoBehaviour {
     void FixedUpdate() {
         transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
     }
+
+    void OnBecameInvisible() {
+        Debug.Log("Tchao !");
+    }
 }
